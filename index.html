@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎰 Cassino Imersivo</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>🎰 Cassino Imersivo</h1>
+  <p>Fichas virtuais: <span id="chips">1000</span></p>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <h2>🎰 Bem-vindo ao Cassino Imersivo!</h2>
+    <p>Divirta-se com nossos jogos emocionantes sem apostar dinheiro real</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number">8</span>
+        <span class="stat-label">Jogos</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">100%</span>
+        <span class="stat-label">Grátis</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">24/7</span>
+        <span class="stat-label">Disponível</span>
+      </div>
+    </div>
+    <div class="hero-games">
+      <span class="game-icon">🎡</span>
+      <span class="game-icon">🎰</span>
+      <span class="game-icon">🎲</span>
+      <span class="game-icon">🃏</span>
+      <span class="game-icon">🪙</span>
+      <span class="game-icon">♠️</span>
+      <span class="game-icon">💎</span>
+      <span class="game-icon">🚀</span>
+    </div>
+  </div>
+  <div class="hero-bg">
+    <div class="floating-chips">
+      <span class="chip">💰</span>
+      <span class="chip">🎰</span>
+      <span class="chip">🎲</span>
+      <span class="chip">🃏</span>
+    </div>
+  </div>
+</section>
+
+<main>
+
+  <!-- Roleta -->
+  <section class="game">
+    <h2>Roleta 🎡</h2>
+    <input type="number" id="rouletteBet" placeholder="Aposte fichas" min="1">
+    <input type="number" id="rouletteNumber" placeholder="Escolha número (0-36)" min="0" max="36">
+    <button id="spinRoulette">Girar Roleta</button>
+    <div class="roulette-wheel" id="rouletteWheel">
+      <div class="pointer">▼</div>
+      <div class="numbers" id="wheelNumbers"></div>
+    </div>
+    <p id="rouletteResult">Resultado: -</p>
+  </section>
+
+  <!-- Slot Machine -->
+  <section class="game">
+    <h2>Slot Machine 🎰</h2>
+    <input type="number" id="slotBet" placeholder="Aposte fichas" min="1">
+    <div class="slots">
+      <span id="slot1">🍒</span>
+      <span id="slot2">🍋</span>
+      <span id="slot3">🍊</span>
+    </div>
+    <button id="spinSlot">Girar Slots</button>
+    <p id="slotResult">Resultado: -</p>
+  </section>
+
+  <!-- Dados -->
+  <section class="game">
+    <h2>Dados 🎲</h2>
+    <input type="number" id="diceBet" placeholder="Aposte fichas" min="1">
+    <input type="number" id="diceSumChoice" placeholder="Escolha a soma (2-12)" min="2" max="12">
+    <button id="rollDice">Rolar Dados</button>
+    <div id="diceContainer">
+      <img class="die" id="die1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Alea_1.png/60px-Alea_1.png" alt="Die 1">
+      <img class="die" id="die2" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Alea_1.png/60px-Alea_1.png" alt="Die 2">
+    </div>
+    <p id="diceResult">Resultado: -</p>
+  </section>
+
+  <!-- Blackjack -->
+  <section class="game">
+    <h2>Blackjack 🃏</h2>
+    <input type="number" id="blackjackBet" placeholder="Aposte fichas" min="1">
+    <button id="startBlackjack">Iniciar Jogo</button>
+    <div id="blackjackArea" style="display:none;">
+      <p>Suas cartas: <span id="playerCards"></span> | Total: <span id="playerTotal"></span></p>
+      <p>Cartas do dealer: <span id="dealerCards"></span> | Total: <span id="dealerTotal"></span></p>
+      <button id="hit">Pedir Carta</button>
+      <button id="stand">Parar</button>
+      <p id="blackjackResult"></p>
+    </div>
+  </section>
+
+  <!-- Cara ou Coroa -->
+  <section class="game">
+    <h2>Cara ou Coroa 🪙</h2>
+    <input type="number" id="coinBet" placeholder="Aposte fichas" min="1">
+    <select id="coinChoice">
+      <option value="cara">Cara</option>
+      <option value="coroa">Coroa</option>
+    </select>
+    <button id="flipCoin">Jogar</button>
+    <img id="coin" src="img/cara.jpg" alt="Coin">
+    <p id="coinResult">Resultado: -</p>
+  </section>
+
+  <!-- Poker simplificado -->
+  <section class="game">
+    <h2>Poker Simplificado ♠️♥️♦️♣️</h2>
+    <input type="number" id="pokerBet" placeholder="Aposte fichas" min="1">
+    <button id="dealPoker">Distribuir Cartas</button>
+    <div id="pokerCards"></div>
+    <p id="pokerResult">Resultado: -</p>
+  </section>
+
+  <!-- Plinko -->
+  <section class="game">
+    <h2>Plinko 🎯</h2>
+    <div id="plinko-container">
+      <div id="plinko-board">
+        <div id="ball"></div>
+        <div class="pin-row" style="margin-top: 40px;">
+          <div class="pin"></div>
+        </div>
+        <div class="pin-row" style="margin-top: 20px;">
+          <div class="pin"></div>
+          <div class="pin"></div>
+        </div>
+        <div class="pin-row" style="margin-top: 20px;">
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+        </div>
+        <div class="pin-row" style="margin-top: 20px;">
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+        </div>
+        <div class="pin-row" style="margin-top: 20px;">
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+        </div>
+        <div class="pin-row" style="margin-top: 20px;">
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+        </div>
+        <div class="pin-row" style="margin-top: 20px;">
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+          <div class="pin"></div>
+        </div>
+      </div>
+      <div id="plinko-slots">
+        <div class="plinko-slot" data-multiplier="7">7x</div>
+        <div class="plinko-slot" data-multiplier="5">5x</div>
+        <div class="plinko-slot" data-multiplier="3">3x</div>
+        <div class="plinko-slot" data-multiplier="1.5">1.5x</div>
+        <div class="plinko-slot" data-multiplier="1">1x</div>
+        <div class="plinko-slot" data-multiplier="0.5">0.5x</div>
+        <div class="plinko-slot" data-multiplier="0.3">0.3x</div>
+        <div class="plinko-slot" data-multiplier="0.1">0.1x</div>
+      </div>
+      <div id="plinko-controls">
+        <input type="number" id="plinkoBet" placeholder="Aposte fichas" min="1">
+        <button id="dropBallBtn">Soltar Bola</button>
+      </div>
+      <p id="plinkoResult">Resultado: -</p>
+    </div>
+  </section>
+
+  <!-- Mines Game -->
+  <section class="game">
+    <h2>Mines 💎</h2>
+    <div id="minesGame">
+      <div id="minesControls">
+        <input type="number" id="minesBet" placeholder="Aposte fichas" min="1">
+        <select id="minesCount">
+          <option value="3">3 Minas</option>
+          <option value="5">5 Minas</option>
+          <option value="7">7 Minas</option>
+          <option value="10">10 Minas</option>
+        </select>
+        <button id="startMines">Iniciar Jogo</button>
+        <button id="cashOutMines" disabled>Sacar</button>
+      </div>
+      <div id="minesInfo">
+        <span id="minesMultiplier">1.00x</span>
+        <span id="minesGems">Gemas: 0</span>
+        <span id="minesPotential">Potencial: 0 fichas</span>
+      </div>
+      <div id="minesBoard"></div>
+      <p id="minesResult">Escolha sua aposta e número de minas para começar!</p>
+    </div>
+  </section>
+
+  <!-- Crash Game -->
+  <section class="game">
+    <h2>Crash 🚀</h2>
+    <div id="crashGame">
+      <div id="multiplierDisplay">1.00x</div>
+      <canvas id="crashGraph" width="400" height="200"></canvas>
+      <div id="crashControls">
+        <input type="number" id="crashBet" placeholder="Aposte fichas" min="1">
+        <button id="startCrash">Apostar</button>
+        <button id="cashOut" disabled>Sacar</button>
+      </div>
+      <p id="crashResult">Aguarde para apostar...</p>
+    </div>
+    <div id="crashHistory">
+      <h3>Histórico de Rodadas</h3>
+      <ul id="historyList"></ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+<p>Divirta-se sem apostar dinheiro real! 😎</p>
+</footer>
+
+<script src="script/script.js"></script>
+<script src="script/mines.js"></script>
+<script src="script/plinko.js"></script>
+</body>
+</html>
