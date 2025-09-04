@@ -1,4 +1,4 @@
-# 🎰 Cassino Imersivo – Jogos de Azar Virtuais
+# 🎰 Monopolio – Jogos de Azar Virtuais
 
 Bem-vindo ao **Cassino Imersivo**, um cassino online **100% gratuito** desenvolvido em **HTML, CSS e JavaScript**. Teste sua sorte sem arriscar dinheiro real!  
 
