@@ -1,5 +1,13 @@
 // -------------------- SLOT MACHINE
 const emojis = ['🍒','🍋','🍊','🍉','⭐','7️⃣'];
+const payoutTable = {
+  '🍒': 5,
+  '🍋': 10,
+  '🍊': 15,
+  '🍉': 20,
+  '⭐': 25,
+  '7️⃣': 30
+};
 document.getElementById('spinSlot').addEventListener('click',()=>{
   let chips = window.getChips();
   if(chips <= 0) return alert('Você não tem fichas suficientes para apostar!');
@@ -23,8 +31,10 @@ document.getElementById('spinSlot').addEventListener('click',()=>{
     if(count>=spins){
       clearInterval(interval);
       let win = 0;
-      if(final1 === final2 && final2 === final3) win = bet * 5;
-      else if(final1 === final2 || final1 === final3 || final2 === final3) win = bet * 2;
+      if(final1 === final2 && final2 === final3) win = bet * payoutTable[final1];
+      else if(final1 === final2) win = bet * payoutTable[final1];
+      else if(final1 === final3) win = bet * payoutTable[final1];
+      else if(final2 === final3) win = bet * payoutTable[final2];
       // if(win) winSound.play(); // Removido para funcionar offline
       chips=chips-bet+win;
       window.setChips(chips);

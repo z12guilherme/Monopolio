@@ -31,7 +31,7 @@ document.getElementById('spinRoulette').addEventListener('click', ()=>{
   wheel.style.transition='transform 3s ease-out';
   wheel.style.transform=`rotate(${rotation}deg)`;
   setTimeout(()=>{
-    const win = (result === chosenNumber) ? bet * 10 : 0;
+    const win = (result === chosenNumber) ? bet * 36 : 0;
     // if(win) winSound.play(); // Removido para funcionar offline
     chips = chips - bet + win;
     window.setChips(chips);
