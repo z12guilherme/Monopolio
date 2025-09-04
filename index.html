@@ -9,7 +9,10 @@
 <body>
 <header>
   <h1>🎰 Monopolio</h1>
-  <p>Fichas virtuais: <span id="chips">1000</span></p>
+  <p>
+    Fichas virtuais: <span id="chips">1000</span>
+    <button id="resetChips" title="Reiniciar fichas para 1000" style="margin-left:8px;">Reiniciar</button>
+  </p>
 </header>
 
 <!-- Hero Section -->
@@ -249,6 +252,42 @@
 <script src="script/script.js"></script>
 <script src="script/mines.js"></script>
 <script src="script/plinko.js"></script>
+<!-- script para gerenciar/reiniciar fichas virtuais -->
+<script>
+// Mantém fichas em localStorage sob a chave 'monopolio_chips' e permite reiniciar para 1000
+(function(){
+  const CHIPS_KEY = 'monopolio_chips';
+  const DEFAULT_CHIPS = 1000;
+  const chipsEl = document.getElementById('chips');
+  const resetBtn = document.getElementById('resetChips');
+
+  function loadChips(){
+    const stored = localStorage.getItem(CHIPS_KEY);
+    const value = stored !== null ? parseInt(stored, 10) : DEFAULT_CHIPS;
+    if (chipsEl) chipsEl.textContent = isNaN(value) ? DEFAULT_CHIPS : value;
+  }
+
+  function saveChips(value){
+    const v = Number.isFinite(Number(value)) ? Math.max(0, Math.floor(Number(value))) : DEFAULT_CHIPS;
+    localStorage.setItem(CHIPS_KEY, String(v));
+    if (chipsEl) chipsEl.textContent = v;
+  }
+
+  // Expor funções globais para outros scripts usarem
+  window.setChips = saveChips;
+  window.getChips = () => Number(localStorage.getItem(CHIPS_KEY) || DEFAULT_CHIPS);
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', function(){
+      if(!confirm('Deseja reiniciar suas fichas para ' + DEFAULT_CHIPS + ' fichas?')) return;
+      saveChips(DEFAULT_CHIPS);
+    });
+  }
+
+  // Inicializa ao carregar
+  loadChips();
+})();
+</script>
 </body>
 </html>
 
