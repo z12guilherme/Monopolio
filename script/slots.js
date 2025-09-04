@@ -31,8 +31,14 @@ document.getElementById('spinSlot').addEventListener('click',()=>{
     if(count>=spins){
       clearInterval(interval);
       let win = 0;
-      if(final1 === final2 && final2 === final3) win = bet * payoutTable[final1];
-      else if(final1 === final2) win = bet * payoutTable[final1];
+      if(final1 === final2 && final2 === final3) {
+        // Randomly decide if jackpot pays 500x (10% chance)
+        if (Math.random() < 0.1) {
+          win = bet * 500;
+        } else {
+          win = bet * payoutTable[final1];
+        }
+      } else if(final1 === final2) win = bet * payoutTable[final1];
       else if(final1 === final3) win = bet * payoutTable[final1];
       else if(final2 === final3) win = bet * payoutTable[final2];
       // if(win) winSound.play(); // Removido para funcionar offline
