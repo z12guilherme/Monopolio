@@ -1,5 +1,4 @@
-  let chips = 1000;
-document.getElementById('chips').textContent = chips;
+
 
 // Sons removidos para funcionar offline
 const spinSound = null;
@@ -19,6 +18,7 @@ wheelNumbers.forEach((num, index) => {
   wheelNumbersDiv.appendChild(span);
 });
 document.getElementById('spinRoulette').addEventListener('click', ()=>{
+  let chips = window.getChips();
   if(chips <= 0) return alert('Você não tem fichas suficientes para apostar!');
   let bet = Number(document.getElementById('rouletteBet').value);
   let chosenNumber = Number(document.getElementById('rouletteNumber').value);
@@ -34,7 +34,7 @@ document.getElementById('spinRoulette').addEventListener('click', ()=>{
     const win = (result === chosenNumber) ? bet * 10 : 0;
     // if(win) winSound.play(); // Removido para funcionar offline
     chips = chips - bet + win;
-    document.getElementById('chips').textContent=chips;
+    window.setChips(chips);
     document.getElementById('rouletteResult').textContent=`Número sorteado: ${result} | Seu número: ${chosenNumber} | ${win ? 'Você ganhou!' : 'Perdeu!'}`;
   },3000);
 });
@@ -42,6 +42,7 @@ document.getElementById('spinRoulette').addEventListener('click', ()=>{
 // -------------------- SLOT MACHINE
 const emojis = ['🍒','🍋','🍊','🍉','⭐','7️⃣'];
 document.getElementById('spinSlot').addEventListener('click',()=>{
+  let chips = window.getChips();
   if(chips <= 0) return alert('Você não tem fichas suficientes para apostar!');
   let bet = Number(document.getElementById('slotBet').value);
   if(bet>chips||bet<=0) return alert('Aposta inválida!');
@@ -67,7 +68,7 @@ document.getElementById('spinSlot').addEventListener('click',()=>{
       else if(final1 === final2 || final1 === final3 || final2 === final3) win = bet * 2;
       // if(win) winSound.play(); // Removido para funcionar offline
       chips=chips-bet+win;
-      document.getElementById('chips').textContent=chips;
+      window.setChips(chips);
       document.getElementById('slotResult').textContent=win?`🎉 Ganhou ${win} fichas!`:'Tente novamente!';
     }
   },100);
@@ -83,6 +84,7 @@ const diceImages = [
   'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Alea_6.png/60px-Alea_6.png'
 ];
 document.getElementById('rollDice').addEventListener('click',()=>{
+  let chips = window.getChips();
   if(chips <= 0) return alert('Você não tem fichas suficientes para apostar!');
   let bet=Number(document.getElementById('diceBet').value);
   const chosenSum=Number(document.getElementById('diceSumChoice').value);
@@ -104,7 +106,7 @@ document.getElementById('rollDice').addEventListener('click',()=>{
     const win=total===chosenSum?bet*5:0;
     // if(win) winSound.play(); // Removido para funcionar offline
     chips=chips-bet+win;
-    document.getElementById('chips').textContent=chips;
+    window.setChips(chips);
     document.getElementById('diceResult').textContent=`Você rolou: ${dice1} e ${dice2} | Total: ${total} | Sua escolha: ${chosenSum} | ${win?'Ganhou!':'Perdeu!'}`;
   },1000);
 });
@@ -112,6 +114,7 @@ document.getElementById('rollDice').addEventListener('click',()=>{
 // -------------------- BLACKJACK
 let playerCards=[],dealerCards=[],playerTotal=0,dealerTotal=0,blackjackBet=0;
 document.getElementById('startBlackjack').addEventListener('click',()=>{
+  let chips = window.getChips();
   if(chips <= 0) return alert('Você não tem fichas suficientes para apostar!');
   blackjackBet=Number(document.getElementById('blackjackBet').value);
   if(blackjackBet>chips||blackjackBet<=0) return alert('Aposta inválida!');
@@ -126,7 +129,8 @@ document.getElementById('hit').addEventListener('click',()=>{
   playerCards.push(drawCard());
   playerTotal=sumCards(playerCards);
   if(playerTotal>21){
-    chips-=blackjackBet;
+    let chips = window.getChips() - blackjackBet;
+    window.setChips(chips);
     endBlackjack('Você estourou! Perdeu!');
   } else updateBlackjackUI();
 });
@@ -135,13 +139,16 @@ document.getElementById('stand').addEventListener('click',()=>{
     dealerCards.push(drawCard());
     dealerTotal=sumCards(dealerCards);
   }
+  let chips = window.getChips();
   if(dealerTotal>21||playerTotal>dealerTotal){
-    chips+=blackjackBet;
+    chips += blackjackBet;
+    window.setChips(chips);
     endBlackjack('Você ganhou!');
   } else if(playerTotal===dealerTotal){
     endBlackjack('Empate!');
   } else {
-    chips-=blackjackBet;
+    chips -= blackjackBet;
+    window.setChips(chips);
     endBlackjack('Dealer venceu! Você perdeu!');
   }
 });
@@ -162,12 +169,12 @@ function updateBlackjackUI(){
 }
 function endBlackjack(msg){
   document.getElementById('blackjackResult').textContent=msg;
-  document.getElementById('chips').textContent=chips;
   document.getElementById('blackjackArea').style.display='none';
 }
 
  // -------------------- CARA OU COROA
 document.getElementById('flipCoin').addEventListener('click',()=>{
+  let chips = window.getChips();
   if(chips <= 0) return alert('Você não tem fichas suficientes para apostar!');
   let bet=Number(document.getElementById('coinBet').value);
   const choice=document.getElementById('coinChoice').value;
@@ -186,13 +193,14 @@ document.getElementById('flipCoin').addEventListener('click',()=>{
     const win=choice===outcome?bet*2:0;
     // if(win) winSound.play(); // Removido para funcionar offline
     chips=chips-bet+win;
-    document.getElementById('chips').textContent=chips;
+    window.setChips(chips);
     document.getElementById('coinResult').textContent=`Saiu ${outcome.toUpperCase()} | ${win?'Ganhou!':'Perdeu!'}`;
   },1000);
 });
 
 // -------------------- POKER SIMPLIFICADO
 document.getElementById('dealPoker').addEventListener('click',()=>{
+  let chips = window.getChips();
   if(chips <= 0) return alert('Você não tem fichas suficientes para apostar!');
   let bet=Number(document.getElementById('pokerBet').value);
   if(bet>chips||bet<=0) return alert('Aposta inválida!');
@@ -214,7 +222,7 @@ document.getElementById('dealPoker').addEventListener('click',()=>{
   else if(playerHand===dealerHand) win=bet;
   // if(win) winSound.play(); // Removido para funcionar offline
   chips=chips-bet+win;
-  document.getElementById('chips').textContent=chips;
+  window.setChips(chips);
   document.getElementById('pokerResult').textContent=`Você: ${playerHand} | Dealer: ${dealerHand} | ${win?'Ganhou!':'Perdeu!'}`;
 });
 
@@ -337,12 +345,13 @@ function updateMultiplier() {
 }
 
 function startCrash() {
+  let chips = window.getChips();
   if (chips <= 0) return alert('Você não tem fichas suficientes para apostar!');
   crashBet = Number(document.getElementById('crashBet').value);
   if (crashBet > chips || crashBet <= 0) return alert('Aposta inválida!');
 
   chips -= crashBet;
-  document.getElementById('chips').textContent = chips;
+  window.setChips(chips);
 
   currentMultiplier = 1.00;
   gameRunning = true;
@@ -373,8 +382,8 @@ function cashOut() {
   gameRunning = false;
 
   const winnings = Math.floor(crashBet * currentMultiplier);
-  chips += winnings;
-  document.getElementById('chips').textContent = chips;
+  let chips = window.getChips() + winnings;
+  window.setChips(chips);
 
   crashResult.textContent = `Você sacou em ${currentMultiplier.toFixed(2)}x! Ganhou ${winnings} fichas!`;
   document.getElementById('startCrash').disabled = false;
