@@ -14,9 +14,9 @@ let minesTotalGems = 0;
 // Much more aggressive multipliers for better excitement
 const multiplierTable = {
   3: [1.00, 1.10, 1.25, 1.45, 1.70, 2.00, 2.35, 2.75, 3.25, 3.80, 4.45, 5.20, 6.10, 7.15, 8.35, 9.75, 11.40, 13.35, 15.60, 18.25, 21.35, 24.95],
-  5: [1.00, 1.15, 1.35, 1.60, 1.90, 2.25, 2.65, 3.15, 3.75, 4.45, 5.25, 6.20, 7.35, 8.70, 10.30, 12.20, 14.45, 17.10, 20.25, 24.00],
-  7: [1.00, 1.20, 1.45, 1.75, 2.10, 2.55, 3.05, 3.70, 4.45, 5.35, 6.45, 7.75, 9.35, 11.25, 13.55, 16.35, 19.70, 23.75],
-  10: [1.00, 1.25, 1.60, 2.05, 2.60, 3.30, 4.20, 5.35, 6.80, 8.65, 11.00, 14.00, 17.85, 22.75, 29.00]
+  5: [1.00, 1.25, 1.55, 1.75, 1.90, 2.25, 2.65, 3.15, 3.75, 4.45, 5.25, 6.20, 7.35, 8.70, 10.30, 12.20, 14.45, 17.10, 20.25, 24.00],
+  7: [1.00, 1.70, 1.95, 2.05, 2.10, 2.55, 3.05, 3.70, 4.45, 5.35, 6.45, 7.75, 9.35, 11.25, 13.55, 16.35, 19.70, 23.75],
+  10: [1.00, 1.85, 2.00, 2.45, 2.60, 3.30, 4.20, 5.35, 6.80, 8.65, 11.00, 14.00, 17.85, 22.75, 29.00]
 };
 
 function initMinesGame() {
@@ -39,8 +39,9 @@ function initMinesGame() {
 }
 
 function startMinesGame() {
-  // Check if chips variable is available
-  if (typeof chips === 'undefined' || chips <= 0) {
+  // Check if chips are available
+  let chips = window.getChips();
+  if (chips <= 0) {
     alert('Você não tem fichas suficientes para apostar!');
     return;
   }
@@ -57,7 +58,7 @@ function startMinesGame() {
 
   // Deduct bet from chips
   chips -= minesBet;
-  document.getElementById('chips').textContent = chips;
+  window.setChips(chips);
 
   // Generate mines randomly
   const minePositions = [];
@@ -136,8 +137,8 @@ function cashOutMines(autoWin = false) {
   minesCashOutAvailable = false;
 
   const winnings = Math.floor(minesBet * minesMultiplier);
-  chips += winnings;
-  document.getElementById('chips').textContent = chips;
+  let chips = window.getChips() + winnings;
+  window.setChips(chips);
 
   if (autoWin) {
     document.getElementById('minesResult').textContent = `🎉 Parabéns! Você encontrou todas as ${minesTotalGems} gemas e ganhou ${winnings} fichas!`;

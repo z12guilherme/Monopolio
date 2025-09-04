@@ -37,22 +37,22 @@ class PlinkoGame {
   dropBall() {
     if (this.isAnimating) return;
 
-    this.updateChipsDisplay();
     const bet = parseInt(this.betInput.value) || 0;
+    const chips = window.getChips();
 
     if (bet <= 0) {
       this.showResult('Digite uma aposta válida!', 'error');
       return;
     }
 
-    if (bet > this.chips) {
+    if (bet > chips) {
       this.showResult('Fichas insuficientes!', 'error');
       return;
     }
 
-    this.chips -= bet;
+    this.chips = chips - bet;
     this.currentBet = bet;
-    document.getElementById('chips').textContent = this.chips;
+    window.setChips(this.chips);
 
     this.isAnimating = true;
     this.ball.classList.add('dropping');
@@ -136,8 +136,8 @@ class PlinkoGame {
     const multiplier = this.slotMultipliers[slotIndex];
     const winnings = this.currentBet * multiplier;
 
-    this.chips += winnings;
-    document.getElementById('chips').textContent = this.chips;
+    this.chips = window.getChips() + winnings;
+    window.setChips(this.chips);
 
     const slotElement = this.slots[slotIndex];
     if (slotElement) {
