@@ -1,12 +1,12 @@
 // -------------------- SLOT MACHINE
 const emojis = ['🍒','🍋','🍊','🍉','⭐','7️⃣'];
 const payoutTable = {
-  '🍒': 5,
-  '🍋': 10,
-  '🍊': 15,
-  '🍉': 20,
-  '⭐': 25,
-  '7️⃣': 30
+  '🍒': 3,
+  '🍋': 5,
+  '🍊': 10,
+  '🍉': 13,
+  '⭐': 16,
+  '7️⃣': 20
 };
 document.getElementById('spinSlot').addEventListener('click',()=>{
   let chips = window.getChips();
