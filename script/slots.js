@@ -38,9 +38,9 @@ document.getElementById('spinSlot').addEventListener('click',()=>{
         } else {
           win = bet * payoutTable[final1];
         }
-      } else if(final1 === final2) win = bet * payoutTable[final1];
-      else if(final1 === final3) win = bet * payoutTable[final1];
-      else if(final2 === final3) win = bet * payoutTable[final2];
+      } else {
+        win = 0;
+      }
       // if(win) winSound.play(); // Removido para funcionar offline
       chips=chips-bet+win;
       window.setChips(chips);
