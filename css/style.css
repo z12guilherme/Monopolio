@@ -783,95 +783,45 @@ footer{padding:20px;background:#111;color:#ffcc00;}
 }
 
 /* Tower Game Styles */
-#tower-container {
-  width: 300px;
-  margin: 20px auto;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-  border-radius: 15px;
-  padding: 15px;
-  box-shadow: 0 0 20px #ffcc00;
-  color: #ffcc00;
-  font-family: Arial, sans-serif;
+#towerGame {
   text-align: center;
-}
-
-#towerScoreDisplay {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 10px;
-}
-
-#potentialWin {
-  font-size: 0.9em;
-  color: #ffaa00;
-  font-weight: normal;
 }
 
 #blocksContainer {
   display: flex;
-  flex-direction: column-reverse;
-  max-height: 400px;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin: 20px 0;
+  max-height: 300px;
   overflow-y: auto;
-  border: 2px solid #ffaa00;
-  border-radius: 10px;
   padding: 10px;
-  background: #111;
+  border: 2px solid #ffcc00;
+  border-radius: 10px;
+  background: #222;
 }
 
 .block {
-  background-color: #4ecdc4;
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 6px;
+  width: 200px;
+  height: 30px;
+  background-color: #ffaa00;
+  border-radius: 5px;
   color: #111;
   font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.block:hover {
-  background-color: #45b7d1;
-}
-
-.block.crash {
-  background-color: #ff4444 !important;
-  color: #fff;
-  cursor: default;
+  font-size: 18px;
+  line-height: 30px;
+  text-align: center;
+  box-shadow: 0 0 10px #ffaa00;
+  user-select: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .block.success {
-  background-color: #ffaa00 !important;
-  cursor: default;
+  background-color: #4ecdc4;
+  box-shadow: 0 0 15px #4ecdc4;
 }
 
-#cashOut, #restartTower {
-  background: linear-gradient(135deg, #ffcc00 0%, #ffaa00 50%, #ff8800 100%);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  color: #111;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin: 10px 5px;
-}
-
-#cashOut:hover, #restartTower:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
-}
-
-/* Responsive Tower */
-@media (max-width: 768px) {
-  #tower-container {
-    width: 90%;
-    max-width: 320px;
-  }
-
-  #towerScoreDisplay {
-    font-size: 1.3em;
-  }
+.block.crash {
+  background-color: #ff4444;
+  box-shadow: 0 0 15px #ff4444;
 }

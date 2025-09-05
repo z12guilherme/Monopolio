@@ -245,13 +245,14 @@
 
   <!-- Tower Game -->
   <section class="game">
-    <h2>Tower 🧱</h2>
+    <h2>Tower 🏰</h2>
     <div id="towerGame">
-      <div id="towerScore">Pontuação: 0</div>
+      <div id="towerScore">Multiplicador: 1.00x</div>
       <input type="number" id="towerBet" placeholder="Aposte fichas" min="1" style="margin-bottom:10px; width: 150px;"/>
-      <canvas id="towerCanvas" width="300" height="400"></canvas>
+      <div id="blocksContainer"></div>
       <p id="towerInstructions">Clique ou pressione ESPAÇO para soltar o bloco!</p>
       <button id="restartTower">Iniciar Jogo</button>
+      <button id="cashOut" disabled>Sacar</button>
       <p id="towerResult"></p>
       <p id="towerCashOutAmount"></p>
     </div>
