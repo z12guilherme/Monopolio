@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const restartTowerBtn = document.getElementById('restartTower');
   const towerResult = document.getElementById('towerResult');
   const blocksContainer = document.getElementById('blocksContainer');
-  const cashOutBtn = document.getElementById('cashOut');
+  const cashOutBtn = document.getElementById('towerCashOut');
+  const towerCashOutAmount = document.getElementById('towerCashOutAmount');
 
   let betAmount = 0;
   let currentLevel = 0;
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     towerInstructions.textContent = 'Clique ou pressione ESPAÇO para soltar o bloco!';
     blocksContainer.innerHTML = '';
     cashOutBtn.disabled = true;
+    towerCashOutAmount.textContent = '';
   }
 
   function drawBlock(level, status) {
@@ -47,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       towerResult.style.color = '#ff4444';
       drawBlock(currentLevel, 'crash');
       cashOutBtn.disabled = true;
+      towerCashOutAmount.textContent = '';
       return;
     }
 
@@ -56,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     towerResult.textContent = '';
     drawBlock(currentLevel - 1, 'success');
     cashOutBtn.disabled = false;
+    towerCashOutAmount.textContent = `Potencial: ${(betAmount * currentMultiplier).toFixed(2)} fichas`;
   }
 
   function cashOut() {
@@ -71,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
       chipsDisplay.textContent = chips.toFixed(2);
     }
     resetGame();
+    towerCashOutAmount.textContent = `Você sacou ${winnings.toFixed(2)} fichas`;
   }
 
   restartTowerBtn.addEventListener('click', () => {
@@ -96,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     towerInstructions.textContent = 'Clique ou pressione ESPAÇO para soltar o bloco!';
     blocksContainer.innerHTML = '';
     cashOutBtn.disabled = true;
+    towerCashOutAmount.textContent = `Potencial: ${(betAmount * currentMultiplier).toFixed(2)} fichas`;
   });
 
   cashOutBtn.addEventListener('click', () => {
