@@ -1,7 +1,32 @@
-# TODO: Fix Plinko Ball Landing on All Multipliers
+# Tower Game Implementation TODO
 
-- [x] Modify velocityX in animateBall() to increase amplitude from *2 to *5 for better spread across slots
-- [x] Reduce collision force in checkPinCollisions from 2 to 1 for softer bounces
-- [ ] Verify slotIndex calculation covers 0 to 7 adequately
-- [ ] Ensure bet multiplication by multiplier is working correctly
-- [ ] Test the game by running index.html and dropping balls multiple times to confirm landing on all multipliers
+## Phase 1: HTML Structure
+- [x] Add Tower game section to index.html with canvas, score display, and instructions
+
+## Phase 2: JavaScript Logic
+- [x] Initialize Tower game variables (blocks, score, speed, etc.)
+- [x] Implement block creation and falling animation
+- [x] Add horizontal movement for current block
+- [x] Implement drop on click/spacebar
+- [x] Add alignment detection and block cutting
+- [x] Update score and difficulty progression
+- [x] Handle game over condition
+- [x] Add restart functionality
+
+## Phase 3: CSS Styling
+- [x] Style Tower canvas and game area
+- [x] Add block colors and animations
+- [x] Style score and UI elements
+- [x] Ensure responsive design
+
+## Phase 4: Extras
+- [ ] Add sound effects for stacking and game over
+- [ ] Implement perfect stack visual feedback
+- [ ] Add localStorage for high score
+- [ ] Test and refine gameplay
+
+## Testing
+- [ ] Verify alignment mechanics
+- [ ] Test scoring system
+- [ ] Check game over and restart
+- [ ] Ensure smooth animations

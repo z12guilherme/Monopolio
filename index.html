@@ -22,7 +22,7 @@
     <p>Divirta-se com nossos jogos emocionantes sem apostar dinheiro real</p>
     <div class="hero-stats">
       <div class="stat">
-        <span class="stat-number">8</span>
+        <span class="stat-number">9</span>
         <span class="stat-label">Jogos</span>
       </div>
       <div class="stat">
@@ -243,6 +243,20 @@
     </div>
   </section>
 
+  <!-- Tower Game -->
+  <section class="game">
+    <h2>Tower 🧱</h2>
+    <div id="towerGame">
+      <div id="towerScore">Pontuação: 0</div>
+      <input type="number" id="towerBet" placeholder="Aposte fichas" min="1" style="margin-bottom:10px; width: 150px;"/>
+      <canvas id="towerCanvas" width="300" height="400"></canvas>
+      <p id="towerInstructions">Clique ou pressione ESPAÇO para soltar o bloco!</p>
+      <button id="restartTower">Iniciar Jogo</button>
+      <p id="towerResult"></p>
+      <p id="towerCashOutAmount"></p>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -258,6 +272,7 @@
 <script src="script/plinko.js"></script>
 <script src="script/mines.js"></script>
 <script src="script/crash.js"></script>
+<script src="script/tower.js"></script>
 <!-- script para gerenciar/reiniciar fichas virtuais -->
 <script>
 // Mantém fichas em localStorage sob a chave 'monopolio_chips' e permite reiniciar para 1000
