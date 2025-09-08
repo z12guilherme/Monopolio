@@ -14,6 +14,7 @@ Bem-vindo ao **Cassino Imersivo**, um cassino online **100% gratuito** desenvolv
 - 🎯 **Plinko** – Bolinha cai entre pinos e multiplica sua aposta.  
 - 💎 **Mines** – Evite minas e colete gemas.  
 - 🚀 **Crash** – Saque antes que o multiplicador exploda.  
+- 🏰 **Tower** – Suba a torre escolhendo o caminho correto.  
 
 ---
 

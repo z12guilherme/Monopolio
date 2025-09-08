@@ -96,7 +96,8 @@ function drawCard() {
   const rank = ranks[Math.floor(Math.random()*ranks.length)];
   const suit = suits[Math.floor(Math.random()*suits.length)];
   const value = rank === 'A' ? 11 : (rank === 'J' || rank === 'Q' || rank === 'K' ? 10 : parseInt(rank, 10));
-  return { rank, suit, value, emoji: rank + suit };
+  const color = (suit === '♥' || suit === '♦') ? 'red' : 'black';
+  return { rank, suit, value, color, emoji: rank + suit };
 }
 
 function sumCards(cards) {
@@ -107,15 +108,29 @@ function sumCards(cards) {
 }
 
 function updateBlackjackUI() {
-  document.getElementById('playerCards').textContent = playerCards.map(c => c.emoji).join(' ');
+  const playerCardsEl = document.getElementById('playerCards');
+  const dealerCardsEl = document.getElementById('dealerCards');
+
+  function cardHTML(card) {
+    return `
+      <span class="card ${card.color}">
+        <span class="corner top-left">${card.rank}${card.suit}</span>
+        <span class="corner bottom-right">${card.rank}${card.suit}</span>
+        <span class="center-suit">${card.suit}</span>
+      </span>
+    `;
+  }
+
+  playerCardsEl.innerHTML = playerCards.map(cardHTML).join('');
   document.getElementById('playerTotal').textContent = playerTotal;
+
   if (showDealer) {
-    document.getElementById('dealerCards').textContent = dealerCards.map(c => c.emoji).join(' ');
+    dealerCardsEl.innerHTML = dealerCards.map(cardHTML).join('');
     document.getElementById('dealerTotal').textContent = dealerTotal;
   } else {
-    const first = dealerCards[0] ? dealerCards[0].emoji : '';
-    const hidden = dealerCards.length > 1 ? ' [?]' : '';
-    document.getElementById('dealerCards').textContent = first + hidden;
+    const firstCard = dealerCards[0] ? cardHTML(dealerCards[0]) : '';
+    const hiddenCard = dealerCards.length > 1 ? `<span class="card back">?</span>` : '';
+    dealerCardsEl.innerHTML = firstCard + hiddenCard;
     document.getElementById('dealerTotal').textContent = '?';
   }
 }

@@ -13,7 +13,7 @@ document.getElementById('spinSlot').addEventListener('click',()=>{
   if(chips <= 0) return alert('Você não tem fichas suficientes para apostar!');
   let bet = Number(document.getElementById('slotBet').value);
   if(bet>chips||bet<=0) return alert('Aposta inválida!');
-  // spinSound.play(); // Removido para funcionar offline
+  spinSound.play(); 
   const slot1 = document.getElementById('slot1');
   const slot2 = document.getElementById('slot2');
   const slot3 = document.getElementById('slot3');
@@ -32,7 +32,7 @@ document.getElementById('spinSlot').addEventListener('click',()=>{
       clearInterval(interval);
       let win = 0;
       if(final1 === final2 && final2 === final3) {
-        // Randomly decide if jackpot pays 500x (10% chance)
+        
         if (Math.random() < 0.1) {
           win = bet * 500;
         } else {
@@ -41,7 +41,7 @@ document.getElementById('spinSlot').addEventListener('click',()=>{
       } else {
         win = 0;
       }
-      // if(win) winSound.play(); // Removido para funcionar offline
+      if(win) winSound.play(); 
       chips=chips-bet+win;
       window.setChips(chips);
       document.getElementById('slotResult').textContent=win?`🎉 Ganhou ${win} fichas!`:'Tente novamente!';

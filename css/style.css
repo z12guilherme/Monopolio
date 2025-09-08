@@ -825,3 +825,78 @@ footer{padding:20px;background:#111;color:#ffcc00;}
   background-color: #ff4444;
   box-shadow: 0 0 15px #ff4444;
 }
+
+/* Blackjack Card Styles */
+.card {
+  display: inline-block;
+  width: 70px;
+  height: 100px;
+  background: white;
+  border: 2px solid #000;
+  border-radius: 10px;
+  margin: 5px;
+  font-family: 'Georgia', serif;
+  user-select: none;
+  position: relative;
+  box-shadow:
+    0 4px 6px rgba(0,0,0,0.3),
+    inset 0 0 10px rgba(255,255,255,0.8);
+  color: black;
+}
+
+.card .corner {
+  position: absolute;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 1;
+  width: 20px;
+  height: 30px;
+  text-align: center;
+  user-select: none;
+}
+
+.card .corner.top-left {
+  top: 5px;
+  left: 5px;
+}
+
+.card .corner.bottom-right {
+  bottom: 5px;
+  right: 5px;
+  transform: rotate(180deg);
+}
+
+.card .center-suit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 36px;
+  user-select: none;
+}
+
+.card.back {
+  background: linear-gradient(135deg, #444, #222);
+  color: white;
+  font-size: 36px;
+  line-height: 100px;
+  border: 2px solid #000;
+  border-radius: 10px;
+  box-shadow:
+    inset 0 0 10px rgba(255,255,255,0.2),
+    0 4px 6px rgba(0,0,0,0.5);
+  position: relative;
+}
+
+.card.back::before {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: white;
+  box-shadow:
+    0 0 10px white;
+}
