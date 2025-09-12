@@ -46,7 +46,7 @@ Copiar código
 ---
 
 ## 🚀 Como Jogar
-1. Abra o `index.html` em qualquer navegador moderno.  
+1. Abra o [`Link'](https://monopolio.netlify.app/)
 2. Consulte suas **fichas virtuais** no topo da página.  
 3. Escolha o jogo desejado, insira sua aposta e divirta-se!  
 
