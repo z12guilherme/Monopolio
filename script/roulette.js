@@ -18,6 +18,10 @@ document.getElementById('spinRoulette').addEventListener('click', ()=>{
   let chosenNumber = Number(document.getElementById('rouletteNumber').value);
   if(bet>chips||bet<=0) return alert('Aposta inválida!');
   if(isNaN(chosenNumber) || chosenNumber < 0 || chosenNumber > 36) return alert('Número inválido!');
+  
+  chips -= bet;
+  window.setChips(chips);
+
   // spinSound.play(); // Removido para funcionar offline
   const result = Math.floor(Math.random()*37);
   const rotation = 720 - result*9.73; // rotação animada
@@ -27,8 +31,10 @@ document.getElementById('spinRoulette').addEventListener('click', ()=>{
   setTimeout(()=>{
     const win = (result === chosenNumber) ? bet * 36 : 0;
     // if(win) winSound.play(); // Removido para funcionar offline
-    chips = chips - bet + win;
-    window.setChips(chips);
+    if (win > 0) {
+      chips += win;
+      window.setChips(chips);
+    }
     document.getElementById('rouletteResult').textContent=`Número sorteado: ${result} | Seu número: ${chosenNumber} | ${win ? 'Você ganhou!' : 'Perdeu!'}`;
   },3000);
 });

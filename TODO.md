@@ -2,3 +2,4 @@
 - [x] Update drawCard function to include color
 - [x] Update updateBlackjackUI to display cards visually
 - [ ] Test blackjack card display: open page, start game, verify visual cards, colors, hidden card
+- [x] Fix roulette logic to deduct money before spinning
