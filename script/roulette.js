@@ -12,7 +12,7 @@ wheelNumbers.forEach((num, index) => {
   if (num === 0) span.classList.add('green');
   else if (redNumbers.includes(num)) span.classList.add('red');
   else span.classList.add('black');
-  span.style.transform = `rotate(${index * 9.73}deg) translateY(-135px)`;
+  span.style.transform = `rotate(${index * 9.73}deg)`;
   wheelNumbersDiv.appendChild(span);
 });
 document.getElementById('spinRoulette').addEventListener('click', ()=>{
