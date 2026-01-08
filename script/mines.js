@@ -1,4 +1,6 @@
 // Mines Game Logic - Complete Implementation
+(function() {
+
 let minesBet = 0;
 let minesCount = 5;
 let minesBoard = [];
@@ -224,3 +226,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, 100);
 });
+
+// Sistema Anti-Trapaça (Trap for cheaters)
+Object.defineProperty(window, 'minesBoard', {
+    get: function() {
+        alert('Achou que seria fácil? Jogue limpo! 🤡🚫');
+        return Array(25).fill('TENTE_OUTRA_VEZ');
+    },
+    set: function() {
+        console.log('Tentativa de alteração bloqueada.');
+    },
+    configurable: true
+});
+
+})();
