@@ -23,13 +23,17 @@ function initCanvas() {
 function drawGraph() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  // Escala dinâmica: garante que o gráfico caiba na tela e o movimento seja visível
+  const maxVal = Math.max(2, (graphData[graphData.length - 1] || 1) * 1.5);
+  const yScale = (canvas.height - 60) / (maxVal - 1);
+
   // Draw grid with gradient effect
   ctx.strokeStyle = '#333';
   ctx.lineWidth = 1;
-  for (let i = 0; i <= 10; i++) {
+  for (let i = 0; i <= 5; i++) {
     ctx.beginPath();
-    ctx.moveTo(0, i * 20);
-    ctx.lineTo(canvas.width, i * 20);
+    ctx.moveTo(0, i * (canvas.height / 5));
+    ctx.lineTo(canvas.width, i * (canvas.height / 5));
     ctx.stroke();
   }
 
@@ -47,11 +51,11 @@ function drawGraph() {
     ctx.strokeStyle = gradient;
     ctx.lineWidth = 4;
     ctx.beginPath();
-    ctx.moveTo(0, canvas.height - (graphData[0] - 1) * 20);
+    ctx.moveTo(0, canvas.height - (graphData[0] - 1) * yScale);
 
     for (let i = 1; i < graphData.length; i++) {
       const x = (i / graphData.length) * canvas.width;
-      const y = canvas.height - (graphData[i] - 1) * 20;
+      const y = canvas.height - (graphData[i] - 1) * yScale;
       ctx.lineTo(x, y);
     }
     ctx.stroke();
@@ -65,43 +69,53 @@ function drawGraph() {
   ctx.font = 'bold 12px Arial';
   ctx.shadowColor = '#000';
   ctx.shadowBlur = 2;
-  for (let i = 1; i <= 10; i++) {
-    ctx.fillText(i + 'x', 5, canvas.height - i * 20 + 5);
+  
+  const step = maxVal > 10 ? Math.ceil(maxVal / 5) : 1;
+  for (let i = 1; i <= Math.floor(maxVal); i += step) {
+    const y = canvas.height - (i - 1) * yScale;
+    if (y > 10 && y < canvas.height) {
+      ctx.fillText(i + 'x', 5, y + 5);
+    }
   }
   ctx.shadowBlur = 0;
 
   // Draw current multiplier indicator
   if (graphData.length > 0) {
-    const currentY = canvas.height - (graphData[graphData.length - 1] - 1) * 20;
+    const currentY = canvas.height - (graphData[graphData.length - 1] - 1) * yScale;
     const currentX = ((graphData.length - 1) / graphData.length) * canvas.width;
 
-    // Draw indicator dot
-    ctx.fillStyle = '#ff4444';
-    ctx.beginPath();
-    ctx.arc(currentX, currentY, 4, 0, 2 * Math.PI);
-    ctx.fill();
+    ctx.save();
+    ctx.translate(currentX, currentY);
 
-    // Draw indicator line
-    ctx.strokeStyle = '#ff4444';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(currentX, currentY);
-    ctx.lineTo(currentX, canvas.height);
-    ctx.stroke();
+    if (!gameRunning && currentMultiplier >= crashPoint) {
+      // Explosão no Crash
+      ctx.font = '40px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('💥', 0, 0);
+    } else {
+      // Foguete voando
+      // Calcula o ângulo baseado nos últimos pontos para suavizar
+      let angle = -0.5; // Ângulo padrão
+      if (graphData.length > 5) {
+        const prevY = canvas.height - (graphData[graphData.length - 5] - 1) * yScale;
+        const prevX = ((graphData.length - 5) / graphData.length) * canvas.width;
+        angle = Math.atan2(currentY - prevY, currentX - prevX);
+      }
+      // Ajusta rotação (o emoji 🚀 aponta naturalmente para NE, ~45 graus)
+      ctx.rotate(angle + Math.PI / 4);
+      ctx.font = '30px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('🚀', 0, 0);
+    }
+    ctx.restore();
   }
 }
 
 function updateMultiplier() {
-  // Aumenta mais rápido a partir do 2x para criar mais emoção
-  let increment = 0.01;
-  if (currentMultiplier >= 2.0) {
-    increment = 0.02; // Dobra a velocidade após 2x
-  }
-  if (currentMultiplier >= 5.0) {
-    increment = 0.03; // Triplica a velocidade após 5x
-  }
-
-  currentMultiplier += increment;
+  // Crescimento exponencial para criar a curva característica do Crash
+  currentMultiplier = currentMultiplier * 1.008 + 0.001;
   multiplierDisplay.textContent = currentMultiplier.toFixed(2) + 'x';
   graphData.push(currentMultiplier);
 
@@ -184,6 +198,7 @@ function crash() {
   document.getElementById('startCrash').disabled = false;
   document.getElementById('cashOut').disabled = true;
 
+  drawGraph(); // Desenha a explosão final
   addToHistory(`Crashed em ${currentMultiplier.toFixed(2)}x (-${crashBet})`, 'crashed');
 }
 
