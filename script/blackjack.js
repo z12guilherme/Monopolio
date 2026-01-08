@@ -113,7 +113,7 @@ function updateBlackjackUI() {
 
   function cardHTML(card) {
     return `
-      <span class="card ${card.color}">
+      <span class="playing-card ${card.color}">
         <span class="corner top-left">${card.rank}${card.suit}</span>
         <span class="corner bottom-right">${card.rank}${card.suit}</span>
         <span class="center-suit">${card.suit}</span>
@@ -129,7 +129,7 @@ function updateBlackjackUI() {
     document.getElementById('dealerTotal').textContent = dealerTotal;
   } else {
     const firstCard = dealerCards[0] ? cardHTML(dealerCards[0]) : '';
-    const hiddenCard = dealerCards.length > 1 ? `<span class="card back">?</span>` : '';
+    const hiddenCard = dealerCards.length > 1 ? `<span class="playing-card back">?</span>` : '';
     dealerCardsEl.innerHTML = firstCard + hiddenCard;
     document.getElementById('dealerTotal').textContent = '?';
   }

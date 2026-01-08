@@ -16,7 +16,7 @@ class PlinkoGame {
     this.bounce = 0.7;
 
     // inverter array de multiplicadores para corresponder à posição visual dos slots
-    this.slotMultipliers = [7, 5, 3, 1.5, 1, 0.5, 0.3, 0.1].reverse(); // [0.1,0.3,0.5,1,1.5,3,5,7]
+    this.slotMultipliers = [7, 5, 3, 1.5, 1, 0.5, 0.3, 0.1]; 
 
     this.isAnimating = false;
     this.currentBet = 0;

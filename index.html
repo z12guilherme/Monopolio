@@ -1,316 +1,470 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎰 Monopolio</title>
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monopolio Casino Royale</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header>
-  <h1>🎰 Monopolio</h1>
-  <p>
-    Fichas virtuais: <span id="chips">1000</span>
-    <button id="resetChips" title="Reiniciar fichas para 1000" style="margin-left:8px;">Reiniciar</button>
-  </p>
-</header>
 
-<!-- Hero Section -->
-<section class="hero">
-  <div class="hero-content">
-    <h2>🎰 Bem-vindo ao Monopolio!</h2>
-    <p>Divirta-se com nossos jogos emocionantes sem apostar dinheiro real</p>
-    <div class="hero-stats">
-      <div class="stat">
-        <span class="stat-number">10</span>
-        <span class="stat-label">Jogos</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number">100%</span>
-        <span class="stat-label">Grátis</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number">24/7</span>
-        <span class="stat-label">Disponível</span>
-      </div>
-    </div>
-    <div class="hero-games">
-      <span class="game-icon">🎡</span>
-      <span class="game-icon">🎰</span>
-      <span class="game-icon">🎲</span>
-      <span class="game-icon">🃏</span>
-      <span class="game-icon">🪙</span>
-      <span class="game-icon">♠️</span>
-      <span class="game-icon">💎</span>
-      <span class="game-icon">🚀</span>
-    </div>
-  </div>
-  <div class="hero-bg">
-    <div class="floating-chips">
-      <span class="chip">💰</span>
-      <span class="chip">🎰</span>
-      <span class="chip">🎲</span>
-      <span class="chip">🃏</span>
-    </div>
-  </div>
-</section>
-
-<main>
-
-  <!-- Roleta -->
-  <section class="game">
-    <h2>Roleta 🎡</h2>
-    <input type="number" id="rouletteBet" placeholder="Aposte fichas" min="1">
-    <input type="number" id="rouletteNumber" placeholder="Escolha número (0-36)" min="0" max="36">
-    <button id="spinRoulette">Girar Roleta</button>
-    <div class="roulette-wheel" id="rouletteWheel">
-      <div class="pointer">▼</div>
-      <div class="numbers" id="wheelNumbers"></div>
-    </div>
-    <p id="rouletteResult">Resultado: -</p>
-  </section>
-
-  <!-- Slot Machine -->
-  <section class="game">
-    <h2>Slot Machine 🎰</h2>
-    <input type="number" id="slotBet" placeholder="Aposte fichas" min="1">
-    <div class="slots">
-      <span id="slot1">🍒</span>
-      <span id="slot2">🍋</span>
-      <span id="slot3">🍊</span>
-    </div>
-    <button id="spinSlot">Girar Slots</button>
-    <p id="slotResult">Resultado: -</p>
-  </section>
-
-  <!-- Dados -->
-  <section class="game">
-    <h2>Dados 🎲</h2>
-    <input type="number" id="diceBet" placeholder="Aposte fichas" min="1">
-    <input type="number" id="diceSumChoice" placeholder="Escolha a soma (2-12)" min="2" max="12">
-    <button id="rollDice">Rolar Dados</button>
-    <div id="diceContainer">
-      <img class="die" id="die1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Alea_1.png/60px-Alea_1.png" alt="Die 1">
-      <img class="die" id="die2" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Alea_1.png/60px-Alea_1.png" alt="Die 2">
-    </div>
-    <p id="diceResult">Resultado: -</p>
-  </section>
-
-  <!-- Blackjack -->
-  <section class="game">
-    <h2>Blackjack 🃏</h2>
-    <input type="number" id="blackjackBet" placeholder="Aposte fichas" min="1">
-    <button id="startBlackjack">Iniciar Jogo</button>
-    <div id="blackjackArea" style="display:none;">
-      <p>Suas cartas: <span id="playerCards"></span> | Total: <span id="playerTotal"></span></p>
-      <p>Cartas do dealer: <span id="dealerCards"></span> | Total: <span id="dealerTotal"></span></p>
-      <button id="hit">Pedir Carta</button>
-      <button id="stand">Parar</button>
-      <p id="blackjackResult"></p>
-    </div>
-  </section>
-
-  <!-- Cara ou Coroa -->
-  <section class="game">
-    <h2>Cara ou Coroa 🪙</h2>
-    <input type="number" id="coinBet" placeholder="Aposte fichas" min="1">
-    <select id="coinChoice">
-      <option value="cara">Cara</option>
-      <option value="coroa">Coroa</option>
-    </select>
-    <button id="flipCoin">Jogar</button>
-    <img id="coin" src="img/cara.jpg" alt="Coin">
-    <p id="coinResult">Resultado: -</p>
-  </section>
-
-  <!-- Poker simplificado -->
-  <section class="game">
-    <h2>Poker Simplificado ♠️♥️♦️♣️</h2>
-    <input type="number" id="pokerBet" placeholder="Aposte fichas" min="1">
-    <button id="dealPoker">Distribuir Cartas</button>
-    <div id="pokerCards"></div>
-    <p id="pokerResult">Resultado: -</p>
-  </section>
-
-  <!-- Plinko -->
-  <section class="game">
-    <h2>Plinko 🎯</h2>
-    <div id="plinko-container">
-      <div id="plinko-board">
-        <div id="ball"></div>
-        <div class="pin-row" style="margin-top: 40px;">
-          <div class="pin"></div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-crown me-2"></i>Monopolio Casino</a>
+            <div class="d-flex align-items-center">
+                <div class="chip-display me-3">
+                    <i class="fas fa-coins me-2"></i><span id="chips">1000</span>
+                </div>
+                <button class="btn btn-sm btn-outline-warning" onclick="resetLobby()">Lobby</button>
+                <button class="btn btn-sm btn-outline-danger ms-2" id="resetChips" title="Reiniciar Saldo"><i class="fas fa-redo"></i></button>
+            </div>
         </div>
-        <div class="pin-row" style="margin-top: 20px;">
-          <div class="pin"></div>
-          <div class="pin"></div>
+    </nav>
+
+    <div class="container mt-4">
+        
+        <!-- LOBBY SECTION (Game Grid) -->
+        <div id="lobby-section" class="row g-4">
+            <div class="col-12 text-center mb-4">
+                <h2 class="text-warning">Escolha seu Jogo</h2>
+                <p class="text-muted">A sorte está lançada!</p>
+            </div>
+
+            <!-- Card: Roleta -->
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="game-card p-4 text-center" onclick="openGame('roulette')">
+                    <div class="game-icon"><i class="fas fa-circle-notch"></i></div>
+                    <h5>Roleta</h5>
+                </div>
+            </div>
+
+            <!-- Card: Blackjack -->
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="game-card p-4 text-center" onclick="openGame('blackjack')">
+                    <div class="game-icon"><i class="fas fa-playing-card"></i></div> <!-- Icon fix -->
+                    <h5>Blackjack</h5>
+                </div>
+            </div>
+
+            <!-- Card: Crash -->
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="game-card p-4 text-center" onclick="openGame('crash')">
+                    <div class="game-icon"><i class="fas fa-chart-line"></i></div>
+                    <h5>Crash</h5>
+                </div>
+            </div>
+
+            <!-- Card: Mines -->
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="game-card p-4 text-center" onclick="openGame('mines')">
+                    <div class="game-icon"><i class="fas fa-bomb"></i></div>
+                    <h5>Mines</h5>
+                </div>
+            </div>
+
+            <!-- Card: Slots -->
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="game-card p-4 text-center" onclick="openGame('slots')">
+                    <div class="game-icon"><i class="fas fa-gem"></i></div>
+                    <h5>Slots</h5>
+                </div>
+            </div>
+
+            <!-- Card: Plinko -->
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="game-card p-4 text-center" onclick="openGame('plinko')">
+                    <div class="game-icon"><i class="fas fa-bowling-ball"></i></div>
+                    <h5>Plinko</h5>
+                </div>
+            </div>
+
+            <!-- Card: Tower -->
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="game-card p-4 text-center" onclick="openGame('tower')">
+                    <div class="game-icon"><i class="fas fa-building"></i></div>
+                    <h5>Tower</h5>
+                </div>
+            </div>
+
+            <!-- Card: Poker -->
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="game-card p-4 text-center" onclick="openGame('poker')">
+                    <div class="game-icon"><i class="fas fa-spade"></i></div> <!-- Icon fix -->
+                    <h5>Poker</h5>
+                </div>
+            </div>
+
+             <!-- Card: Dice -->
+             <div class="col-6 col-md-4 col-lg-3">
+                <div class="game-card p-4 text-center" onclick="openGame('dice')">
+                    <div class="game-icon"><i class="fas fa-dice"></i></div>
+                    <h5>Dados</h5>
+                </div>
+            </div>
+
+             <!-- Card: Coin Flip -->
+             <div class="col-6 col-md-4 col-lg-3">
+                <div class="game-card p-4 text-center" onclick="openGame('coin')">
+                    <div class="game-icon"><i class="fas fa-coins"></i></div>
+                    <h5>Cara ou Coroa</h5>
+                </div>
+            </div>
         </div>
-        <div class="pin-row" style="margin-top: 20px;">
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
+
+        <!-- ================= GAME SECTIONS ================= -->
+
+        <!-- 1. ROULETTE -->
+        <div id="game-roulette" class="game-section">
+            <div class="close-game" onclick="resetLobby()"><i class="fas fa-times"></i></div>
+            <h3 class="text-warning mb-4"><i class="fas fa-circle-notch me-2"></i>Roleta Europeia</h3>
+            <div class="row">
+                <div class="col-md-7 text-center">
+                    <div class="roulette-wheel" id="rouletteWheel">
+                        <div class="pointer">▼</div>
+                        <div class="numbers" id="wheelNumbers"></div>
+                    </div>
+                    <div id="rouletteResult" class="mt-3 fw-bold">Faça sua aposta!</div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card bg-dark border-secondary p-3">
+                        <label>Aposta:</label>
+                        <input type="number" id="rouletteBet" class="form-control mb-2" placeholder="Valor">
+                        <label>Número (0-36):</label>
+                        <input type="number" id="rouletteNumber" class="form-control mb-3" placeholder="Número">
+                        <button id="spinRoulette" class="btn btn-gold">GIRAR</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="pin-row" style="margin-top: 20px;">
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
+
+        <!-- 2. BLACKJACK -->
+        <div id="game-blackjack" class="game-section">
+            <div class="close-game" onclick="resetLobby()"><i class="fas fa-times"></i></div>
+            <h3 class="text-warning mb-4">Blackjack</h3>
+            
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-6">
+                    <div class="card bg-dark border-secondary p-3">
+                        <div class="d-flex gap-2">
+                            <input type="number" id="blackjackBet" class="form-control" placeholder="Valor da Aposta">
+                            <button id="startBlackjack" class="btn btn-gold" style="white-space: nowrap;">Dar Cartas</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="blackjackArea" style="display:none;">
+                <div class="row text-center">
+                    <div class="col-md-6 mb-3">
+                        <h5>Dealer (<span id="dealerTotal">?</span>)</h5>
+                        <div id="dealerCards" class="d-flex justify-content-center flex-wrap"></div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h5>Você (<span id="playerTotal">0</span>)</h5>
+                        <div id="playerCards" class="d-flex justify-content-center flex-wrap"></div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <button id="hit" class="btn btn-primary me-2" disabled>Pedir (Hit)</button>
+                    <button id="stand" class="btn btn-danger" disabled>Parar (Stand)</button>
+                </div>
+                <div id="blackjackResult" class="text-center mt-3 h4 text-warning"></div>
+            </div>
         </div>
-        <div class="pin-row" style="margin-top: 20px;">
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
+
+        <!-- 3. CRASH -->
+        <div id="game-crash" class="game-section">
+            <div class="close-game" onclick="resetLobby()"><i class="fas fa-times"></i></div>
+            <h3 class="text-warning">Crash</h3>
+            <div class="row">
+                <div class="col-md-8">
+                    <canvas id="crashGraph" width="400" height="300"></canvas>
+                    <div class="text-center mt-2">
+                        <h2 id="multiplierDisplay" class="display-4 fw-bold text-white">1.00x</h2>
+                        <div id="crashResult"></div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-dark border-secondary p-3">
+                        <label>Aposta:</label>
+                        <input type="number" id="crashBet" class="form-control mb-3">
+                        <button id="startCrash" class="btn btn-success mb-2 w-100">Apostar</button>
+                        <button id="cashOut" class="btn btn-warning w-100" disabled>SACAR (Cash Out)</button>
+                    </div>
+                    <div class="mt-3">
+                        <h6>Histórico:</h6>
+                        <ul id="historyList" class="list-unstyled small text-muted"></ul>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="pin-row" style="margin-top: 20px;">
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
+
+        <!-- 4. MINES -->
+        <div id="game-mines" class="game-section">
+            <div class="close-game" onclick="resetLobby()"><i class="fas fa-times"></i></div>
+            <h3 class="text-warning">Mines</h3>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card bg-dark border-secondary p-3">
+                        <label>Aposta:</label>
+                        <input type="number" id="minesBet" class="form-control mb-2">
+                        <label>Minas (1-24):</label>
+                        <select id="minesCount" class="form-select mb-3">
+                            <option value="3">3 Minas</option>
+                            <option value="5" selected>5 Minas</option>
+                            <option value="10">10 Minas</option>
+                            <option value="20">20 Minas</option>
+                        </select>
+                        <button id="startMines" class="btn btn-gold mb-2">Começar Jogo</button>
+                        <button id="cashOutMines" class="btn btn-success w-100" disabled>Sacar</button>
+                    </div>
+                    <div class="mt-3">
+                        <div>Multiplicador: <span id="minesMultiplier" class="text-warning">1.00x</span></div>
+                        <div id="minesPotential"></div>
+                        <div id="minesGems"></div>
+                    </div>
+                </div>
+                <div class="col-md-8 text-center">
+                    <div id="minesBoard"></div>
+                    <div id="minesResult" class="mt-3 fw-bold"></div>
+                </div>
+            </div>
         </div>
-        <div class="pin-row" style="margin-top: 20px;">
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
-          <div class="pin"></div>
+
+        <!-- 5. SLOTS -->
+        <div id="game-slots" class="game-section">
+            <div class="close-game" onclick="resetLobby()"><i class="fas fa-times"></i></div>
+            <h3 class="text-warning text-center">Slot Machine</h3>
+            <div class="d-flex justify-content-center my-4">
+                <div class="border border-warning p-2 mx-1 display-1 bg-black rounded" id="slot1">🍒</div>
+                <div class="border border-warning p-2 mx-1 display-1 bg-black rounded" id="slot2">🍒</div>
+                <div class="border border-warning p-2 mx-1 display-1 bg-black rounded" id="slot3">🍒</div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <div class="card bg-dark border-secondary p-3">
+                        <input type="number" id="slotBet" class="form-control mb-2" placeholder="Aposta">
+                        <button id="spinSlot" class="btn btn-gold">GIRAR</button>
+                    </div>
+                    <div id="slotResult" class="text-center mt-3 h5 text-warning"></div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div id="plinko-slots">
-        <div class="plinko-slot" data-multiplier="7">7x</div>
-        <div class="plinko-slot" data-multiplier="5">5x</div>
-        <div class="plinko-slot" data-multiplier="3">3x</div>
-        <div class="plinko-slot" data-multiplier="1.5">1.5x</div>
-        <div class="plinko-slot" data-multiplier="1">1x</div>
-        <div class="plinko-slot" data-multiplier="0.5">0.5x</div>
-        <div class="plinko-slot" data-multiplier="0.3">0.3x</div>
-        <div class="plinko-slot" data-multiplier="0.1">0.1x</div>
-      </div>
-      <div id="plinko-controls">
-        <input type="number" id="plinkoBet" placeholder="Aposte fichas" min="1">
-        <button id="dropBallBtn">Soltar Bola</button>
-      </div>
-      <p id="plinkoResult">Resultado: -</p>
+
+        <!-- 6. PLINKO -->
+        <div id="game-plinko" class="game-section">
+            <div class="close-game" onclick="resetLobby()"><i class="fas fa-times"></i></div>
+            <h3 class="text-warning">Plinko</h3>
+            <div class="row">
+                <div class="col-md-8">
+                    <div id="plinko-container">
+                        <div id="plinko-board">
+                            <div id="ball"></div>
+                            <!-- Pins will be generated by JS -->
+                        </div>
+                        <div id="plinko-slots">
+                            <div class="plinko-slot" data-multiplier="7">7x</div>
+                            <div class="plinko-slot" data-multiplier="5">5x</div>
+                            <div class="plinko-slot" data-multiplier="3">3x</div>
+                            <div class="plinko-slot" data-multiplier="1.5">1.5x</div>
+                            <div class="plinko-slot" data-multiplier="1">1x</div>
+                            <div class="plinko-slot" data-multiplier="0.5">0.5x</div>
+                            <div class="plinko-slot" data-multiplier="0.3">0.3x</div>
+                            <div class="plinko-slot" data-multiplier="0.1">0.1x</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-dark border-secondary p-3">
+                        <label>Aposta:</label>
+                        <input type="number" id="plinkoBet" class="form-control mb-3">
+                        <button id="dropBallBtn" class="btn btn-gold">Soltar Bola</button>
+                    </div>
+                    <div id="plinkoResult" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. TOWER -->
+        <div id="game-tower" class="game-section">
+            <div class="close-game" onclick="resetLobby()"><i class="fas fa-times"></i></div>
+            <h3 class="text-warning">Tower Legend</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card bg-dark border-secondary p-3 mb-3">
+                        <input type="number" id="towerBet" class="form-control mb-2" placeholder="Aposta">
+                        <button id="restartTower" class="btn btn-gold mb-2">Novo Jogo</button>
+                        <button id="towerCashOut" class="btn btn-success" disabled>Sacar</button>
+                    </div>
+                    <div id="towerScore" class="h4 text-warning">Multiplicador: 1.00x</div>
+                    <div id="towerCashOutAmount"></div>
+                    <div id="towerInstructions" class="small text-muted"></div>
+                </div>
+                <div class="col-md-8">
+                    <div id="towerGame" style="min-height:300px; border:1px solid #444; position:relative; overflow:hidden;">
+                        <div id="blocksContainer" class="d-flex flex-column align-items-center p-3" style="height:100%;"></div>
+                    </div>
+                    <div id="towerResult" class="text-center mt-2 fw-bold"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. POKER -->
+        <div id="game-poker" class="game-section">
+            <div class="close-game" onclick="resetLobby()"><i class="fas fa-times"></i></div>
+            <h3 class="text-warning">Video Poker</h3>
+            <div class="text-center">
+                <div id="pokerCards" class="mb-4 h4" style="min-height: 100px;"></div>
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <div class="card bg-dark border-secondary p-3">
+                            <input type="number" id="pokerBet" class="form-control mb-2" placeholder="Aposta">
+                            <button id="dealPoker" class="btn btn-gold">Dar Cartas</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="pokerResult" class="mt-3 h5 text-info"></div>
+            </div>
+        </div>
+
+        <!-- 9. DICE -->
+        <div id="game-dice" class="game-section">
+            <div class="close-game" onclick="resetLobby()"><i class="fas fa-times"></i></div>
+            <h3 class="text-warning">Dados</h3>
+            <div class="text-center">
+                <div class="d-flex justify-content-center gap-4 mb-4" id="diceContainer">
+                    <img id="die1" class="die" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Alea_1.png/60px-Alea_1.png" width="80">
+                    <img id="die2" class="die" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Alea_1.png/60px-Alea_1.png" width="80">
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <div class="card bg-dark border-secondary p-3">
+                            <input type="number" id="diceBet" class="form-control mb-2" placeholder="Aposta">
+                            <label class="form-label text-muted small">Escolha a Soma (2-12):</label>
+                            <input type="number" id="diceSumChoice" class="form-control mb-3" min="2" max="12">
+                            <button id="rollDice" class="btn btn-gold">Rolar Dados</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="diceResult" class="mt-3 h5"></div>
+            </div>
+        </div>
+
+        <!-- 10. COIN FLIP -->
+        <div id="game-coin" class="game-section">
+            <div class="close-game" onclick="resetLobby()"><i class="fas fa-times"></i></div>
+            <h3 class="text-warning">Cara ou Coroa</h3>
+            <div class="text-center">
+                <div style="perspective: 1000px; width: 150px; height: 150px; margin: 0 auto 20px;">
+                    <img id="coin" src="img/cara.png" style="width:100%; height:100%; object-fit:contain;" alt="Coin">
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <div class="card bg-dark border-secondary p-3">
+                            <input type="number" id="coinBet" class="form-control mb-2" placeholder="Aposta">
+                            <select id="coinChoice" class="form-select mb-3">
+                                <option value="cara">Cara</option>
+                                <option value="coroa">Coroa</option>
+                            </select>
+                            <button id="flipCoin" class="btn btn-gold">Girar Moeda</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="coinResult" class="mt-3 h5"></div>
+            </div>
+        </div>
+
     </div>
-  </section>
 
-  <!-- Mines Game -->
-  <section class="game">
-    <h2>Mines 💎</h2>
-    <div id="minesGame">
-      <div id="minesControls">
-        <input type="number" id="minesBet" placeholder="Aposte fichas" min="1">
-        <select id="minesCount">
-          <option value="3">3 Minas</option>
-          <option value="5">5 Minas</option>
-          <option value="7">7 Minas</option>
-          <option value="10">10 Minas</option>
-        </select>
-        <button id="startMines">Iniciar Jogo</button>
-        <button id="cashOutMines" disabled>Sacar</button>
-      </div>
-      <div id="minesInfo">
-        <span id="minesMultiplier">1.00x</span>
-        <span id="minesGems">Gemas: 0</span>
-        <span id="minesPotential">Potencial: 0 fichas</span>
-      </div>
-      <div id="minesBoard"></div>
-      <p id="minesResult">Escolha sua aposta e número de minas para começar!</p>
-    </div>
-  </section>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Main Logic for Tabs & Chips -->
+    <script>
+        // Global Chip Management
+        const CHIPS_KEY = 'monopolio_chips';
+        const DEFAULT_CHIPS = 1000;
 
-  <!-- Crash Game -->
-  <section class="game">
-    <h2>Crash 🚀</h2>
-    <div id="crashGame">
-      <div id="multiplierDisplay">1.00x</div>
-      <canvas id="crashGraph" width="400" height="200"></canvas>
-      <div id="crashControls">
-        <input type="number" id="crashBet" placeholder="Aposte fichas" min="1">
-        <button id="startCrash">Apostar</button>
-        <button id="cashOut" disabled>Sacar</button>
-      </div>
-      <p id="crashResult">Aguarde para apostar...</p>
-    </div>
-    <div id="crashHistory">
-      <h3>Histórico de Rodadas</h3>
-      <ul id="historyList"></ul>
-    </div>
-  </section>
+        window.getChips = function() {
+            return parseFloat(localStorage.getItem(CHIPS_KEY) || DEFAULT_CHIPS);
+        };
 
-  <!-- Tower Game -->
-  <section class="game">
-    <h2>Tower 🏰</h2>
-    <div id="towerGame">
-      <div id="towerScore">Multiplicador: 1.00x</div>
-      <input type="number" id="towerBet" placeholder="Aposte fichas" min="1" style="margin-bottom:10px; width: 150px;"/>
-      <div id="blocksContainer"></div>
-      <p id="towerInstructions">Clique ou pressione ESPAÇO para soltar o bloco!</p>
-      <button id="restartTower">Iniciar Jogo</button>
-      <button id="towerCashOut" disabled>Sacar</button>
-      <p id="towerResult"></p>
-      <p id="towerCashOutAmount"></p>
-    </div>
-  </section>
+        window.setChips = function(amount) {
+            localStorage.setItem(CHIPS_KEY, amount);
+            const el = document.getElementById('chips');
+            if(el) el.textContent = amount.toFixed(2);
+        };
 
-</main>
+        // Inicializa display
+        document.getElementById('chips').textContent = window.getChips().toFixed(2);
 
-<footer>
-<p>Divirta-se sem apostar dinheiro real! 😎</p>
-</footer>
+        // Reset Button
+        document.getElementById('resetChips').addEventListener('click', () => {
+            if(confirm('Reiniciar saldo para 1000?')) {
+                window.setChips(1000);
+            }
+        });
 
-<script src="script/roulette.js"></script>
-<script src="script/slots.js"></script>
-<script src="script/dice.js"></script>
-<script src="script/blackjack.js"></script>
-<script src="script/coinflip.js"></script>
-<script src="script/poker.js"></script>
-<script src="script/plinko.js"></script>
-<script src="script/mines.js"></script>
-<script src="script/crash.js"></script>
-<script src="script/tower.js"></script>
-<!-- script para gerenciar/reiniciar fichas virtuais -->
-<script>
-// Mantém fichas em localStorage sob a chave 'monopolio_chips' e permite reiniciar para 1000
-(function(){
-  const CHIPS_KEY = 'monopolio_chips';
-  const DEFAULT_CHIPS = 1000;
-  const chipsEl = document.getElementById('chips');
-  const resetBtn = document.getElementById('resetChips');
+        // Tab Switching Logic
+        function openGame(gameName) {
+            document.getElementById('lobby-section').style.display = 'none';
+            document.querySelectorAll('.game-section').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            const gameEl = document.getElementById('game-' + gameName);
+            if(gameEl) {
+                gameEl.style.display = 'block';
+                setTimeout(() => gameEl.classList.add('active'), 10);
+            }
+        }
 
-  function loadChips(){
-    const stored = localStorage.getItem(CHIPS_KEY);
-    const value = stored !== null ? parseInt(stored, 10) : DEFAULT_CHIPS;
-    if (chipsEl) chipsEl.textContent = isNaN(value) ? DEFAULT_CHIPS : value;
-  }
+        function resetLobby() {
+            document.querySelectorAll('.game-section').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            document.getElementById('lobby-section').style.display = 'flex';
+        }
 
-  function saveChips(value){
-    const v = Number.isFinite(Number(value)) ? Math.max(0, Math.floor(Number(value))) : DEFAULT_CHIPS;
-    localStorage.setItem(CHIPS_KEY, String(v));
-    if (chipsEl) chipsEl.textContent = v;
-  }
+        // Helper para gerar pinos do Plinko
+        document.addEventListener('DOMContentLoaded', () => {
+            const board = document.getElementById('plinko-board');
+            if(board && board.querySelectorAll('.pin').length === 0) {
+                const rows = 12; // Ajustado para caber no board
+                for(let i = 0; i < rows; i++) {
+                    const rowDiv = document.createElement('div');
+                    rowDiv.className = 'pin-row';
+                    // Centraliza as linhas
+                    rowDiv.style.marginTop = (i === 0 ? 40 : 20) + 'px';
+                    
+                    for(let j = 0; j <= i; j++) {
+                        const pin = document.createElement('div');
+                        pin.className = 'pin';
+                        rowDiv.appendChild(pin);
+                    }
+                    board.appendChild(rowDiv);
+                }
+            }
+        });
+    </script>
 
-  // Expor funções globais para outros scripts usarem
-  window.setChips = saveChips;
-  window.getChips = () => Number(localStorage.getItem(CHIPS_KEY) || DEFAULT_CHIPS);
-
-  if (resetBtn) {
-    resetBtn.addEventListener('click', function(){
-      if(!confirm('Deseja reiniciar suas fichas para ' + DEFAULT_CHIPS + ' fichas?')) return;
-      saveChips(DEFAULT_CHIPS);
-    });
-  }
-
-  // Inicializa ao carregar
-  loadChips();
-})();
-</script>
+    <!-- Load Game Scripts -->
+    <script src="script/roulette.js"></script>
+    <script src="script/blackjack.js"></script>
+    <script src="script/crash.js"></script>
+    <script src="script/mines.js"></script>
+    <script src="script/slots.js"></script>
+    <script src="script/plinko.js"></script>
+    <script src="script/tower.js"></script>
+    <script src="script/poker.js"></script>
+    <script src="script/dice.js"></script>
+    <script src="script/coinflip.js"></script>
 </body>
 </html>
-
-
